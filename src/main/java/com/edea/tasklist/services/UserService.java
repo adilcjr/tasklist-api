@@ -50,8 +50,8 @@ public interface UserService {
 	/**
 	 * 
 	 * @param password
-	 * @return
+	 * @return the Id for user
 	 */
-	boolean passwordVerification(String email, String password);
+	Long passwordVerification(String email, String password);
 
 }

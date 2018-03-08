@@ -76,14 +76,14 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-	public boolean passwordVerification(String email, String password) {
+	public Long passwordVerification(String email, String password) {
 		
 		if (email!= null && password != null) {
 			User user = userRepository.findByEmail(email);
 			if (user!= null && user.getPassword().equals(
 					Encryptor.getDataEncrypted(password)))
-				return true;
+				return user.getId();
 		}
-		return false;
+		return null;
 	}
 }

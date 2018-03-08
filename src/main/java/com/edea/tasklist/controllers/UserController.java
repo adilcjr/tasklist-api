@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import com.edea.tasklist.responses.Response;
 import com.edea.tasklist.services.UserService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8000")
 @RequestMapping("tasklist/user")
 public class UserController {
 
@@ -103,8 +105,11 @@ public class UserController {
 	@PostMapping(value="/auth")
 	public ResponseEntity<Object> passwordVerification(@RequestBody UserDTO user) {
 		
-		if (userService.passwordVerification(user.getEmail(), user.getPassword()))
-			return ResponseEntity.ok().build();
+		Long userId = userService.passwordVerification(user.getEmail(), user.getPassword());
+		if (userId != null) {
+			user.setId(userId);
+			return ResponseEntity.ok(user);
+		}
 		
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}

@@ -2,6 +2,7 @@ package com.edea.tasklist.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -48,7 +49,7 @@ public class UserServiceImplTest {
 	@Test
 	public void testUpdateUser() {
 		
-		userService.updateUser(1L, "papai@noel.com", "papainoel");
+		userService.updateUser(1L, "papai@noel.com", "papaiNoel");
 		User user = userService.findById(1L);		
 		assertEquals("papai@noel.com", user.getEmail());
 		
@@ -65,12 +66,12 @@ public class UserServiceImplTest {
 	@Test
 	public void testPasswordVerification() {
 		
-		assertFalse(userService.passwordVerification("papai@noel.com", null));
-		assertFalse(userService.passwordVerification(null, "teste"));
-		assertFalse(userService.passwordVerification("papai@noel.com", ""));
-		assertFalse(userService.passwordVerification("", ""));
-		assertFalse(userService.passwordVerification("papai@noel.com", "erro"));
-		assertTrue(userService.passwordVerification("papai@noel.com", "papainoel"));
+		assertNull(userService.passwordVerification("papai@noel.com", null));
+		assertNull(userService.passwordVerification(null, "teste"));
+		assertNull(userService.passwordVerification("papai@noel.com", ""));
+		assertNull(userService.passwordVerification("", ""));
+		assertNull(userService.passwordVerification("papai@noel.com", "erro"));
+		assertNotNull(userService.passwordVerification("papai@noel.com", "papaiNoel"));
 		
 	}
 	
